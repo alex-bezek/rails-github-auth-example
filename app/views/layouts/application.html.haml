@@ -1,0 +1,28 @@
+!!!
+%html
+  %head
+    %title
+      New Project
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body{"data-gr-c-s-loaded" => "true"}
+    .container
+      .header.clearfix
+        %nav
+          %ul.nav.nav-pills.float-right
+            %li.nav-item
+              %a.nav-link.active{:href => "/"}
+                Home
+                %span.sr-only (current)
+            %li.nav-item
+              %a.nav-link{:href => "#"} About
+            %li.nav-item
+              %a.nav-link{:href => "#"} Contact
+            - if signed_in?
+              %li.nav-item
+                %a.nav-link{:href => "users/#{session[:user_id]}"} Profile
+      - flash.each do |key, value|
+        %div{class: "alert alert-#{key}"}
+          = value
+      = yield
